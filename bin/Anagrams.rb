@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/anagram.rb'
+require_relative '../lib/anagram_finder.rb'
 
 def user_input(message_to_user)
     puts message_to_user
@@ -13,7 +13,13 @@ if ARGV[0] == nil
 else
     input_content = ARGV
 end
-p input_content
-anagrams = Anagram.new(input_content)
 
+def print_anagrams(anagrams)
+    all_anagrams_of_word = anagrams.find_anagrams
+    all_anagrams_of_word.each do |anagrams|
+        puts anagrams.join(" ")
+    end
+end
 
+anagrams = Finder.new(input_content)
+print_anagrams(anagrams)
