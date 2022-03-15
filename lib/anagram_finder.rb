@@ -17,7 +17,7 @@ class Finder
     private
 
     def signatures
-      @signature ||= signatures_of_words_file
+      signatures ||= signatures_of_words_file
     end
 
     def signatures_of_words_file
