@@ -16,8 +16,8 @@ end
 
 def print_anagrams(anagrams)
     all_anagrams_of_word = anagrams.find_anagrams
-    all_anagrams_of_word.each do |anagrams|
-        puts anagrams.join(" ")
+    all_anagrams_of_word.each do |one_anagram|
+        puts one_anagram.join(" ")
     end
 end
 

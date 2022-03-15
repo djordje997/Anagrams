@@ -1,9 +1,9 @@
-require 'pry'
+
 class AnagramFinder
     def initialize(word_list, dictionary)
       @dictionary = dictionary
       @word_list = word_list
-      @signatures = Hash.new(0)
+      @signatures = nil
     end
 
     def find_anagrams
@@ -12,7 +12,7 @@ class AnagramFinder
       @word_list.each do |word|
         stored_anagrams << anagrams_for_word(word)
       end
-      p stored_anagrams
+      stored_anagrams
     end
 
     private
@@ -22,12 +22,12 @@ class AnagramFinder
     end
 
     def signatures_of_words_file
-      all_signatures_from_file = Hash.new(0)
+      all_signatures_from_file = Hash.new {|h, k| h[k] = []}
       words_from_file = read_from(@dictionary)
       words_from_file.each do |line|
         word = line.chomp
         signature = sort_word(word)
-        (all_signatures_from_file[signature] ||=[]) << word
+        all_signatures_from_file[signature] << word
       end
       all_signatures_from_file
     end
