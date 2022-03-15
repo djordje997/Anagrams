@@ -1,8 +1,9 @@
-class Finder
-  DICTIONARY = 'wordlist.txt'
-    def initialize(word_list)
+require 'pry'
+class AnagramFinder
+    def initialize(word_list, dictionary)
+      @dictionary = dictionary
       @word_list = word_list
-      @signatures = Hash.new
+      @signatures = Hash.new(0)
     end
 
     def find_anagrams
@@ -11,23 +12,24 @@ class Finder
       @word_list.each do |word|
         stored_anagrams << anagrams_for_word(word)
       end
-      stored_anagrams
+      p stored_anagrams
     end
 
     private
 
     def signatures
-      signatures ||= signatures_of_words_file
+      @signatures ||= signatures_of_words_file
     end
 
     def signatures_of_words_file
-      words_from_file = read_from(DICTIONARY)
+      all_signatures_from_file = Hash.new(0)
+      words_from_file = read_from(@dictionary)
       words_from_file.each do |line|
         word = line.chomp
         signature = sort_word(word)
-        (@signatures[signature] ||=[]) << word
+        (all_signatures_from_file[signature] ||=[]) << word
       end
-      @signatures
+      all_signatures_from_file
     end
 
     def anagrams_for_word(word)

@@ -21,5 +21,5 @@ def print_anagrams(anagrams)
     end
 end
 
-anagrams = Finder.new(input_content)
+anagrams = AnagramFinder.new(input_content, 'wordlist.txt')
 print_anagrams(anagrams)
