@@ -9,7 +9,7 @@ def user_input(message_to_user)
 end
 
 if ARGV[0] == nil
-    input_content = user_input("Find anagrams for:")
+    input_content = user_input("Find anagrams in:")
 else
     input_content = ARGV
 end

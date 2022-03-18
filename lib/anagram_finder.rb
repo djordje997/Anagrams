@@ -2,17 +2,18 @@
 require 'pry'
 class AnagramFinder
   def initialize(dictionary)
-    @file = 'wordlist.txt'
     @dictionary = dictionary
+    @file = @dictionary[0]
     @signatures = nil
   end
 
   def find_anagrams
     signatures
-    if @dictionary[0].include? ".txt"
+    if @dictionary.size == 1 
       stored_anagrams = find_all_anagrams(@signatures)
     else
-      stored_anagrams = find_anagrams_for_selected_words(@dictionary)
+      words_to_find = @dictionary.drop(1)
+      stored_anagrams = find_anagrams_for_selected_words(words_to_find)
     end
     stored_anagrams
   end
@@ -29,12 +30,12 @@ class AnagramFinder
 
   def find_all_anagrams(all_signatures)
     all_anagrams = []
-    all_signatures.each do |key, value| 
-        if value.size > 1 
-          all_anagrams << value 
-        end
+    all_signatures.each do |value|
+      if value.size > 1 
+        all_anagrams << value
       end
-      all_anagrams
+    end
+    all_anagrams
   end
 
   def signatures
@@ -43,7 +44,7 @@ class AnagramFinder
 
   def signatures_of_words_file
     all_signatures_from_file = Hash.new {|h, k| h[k] = []}
-    words_from_file = read_from(@file)
+    words_from_file = read_from(@dictionary[0])
     words_from_file.each do |line|
       word = line.chomp
       signature = sort_word(word)
