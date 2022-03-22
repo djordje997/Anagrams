@@ -4,14 +4,14 @@ class AnagramFinder
   end
 
   def find_anagrams
-    find_all_anagrams(signatures)
+    find_all_anagrams
   end
 
   private
 
-  def find_all_anagrams(all_signatures)
+  def find_all_anagrams
     all_anagrams = []
-    all_signatures.each do |key, value|
+    signatures.each do |key, value|
       if value.size > 1 
         all_anagrams << value
       end
@@ -20,12 +20,12 @@ class AnagramFinder
   end
 
   def signatures
-    @signatures ||= signatures_of_words_file
+    @signatures ||= hash_map_all_data
   end
 
-  def signatures_of_words_file
+  def hash_map_all_data
     all_signatures_from_file = Hash.new {|h, k| h[k] = []}
-    dictionary_words = dictionary_format(@dictionary)
+    dictionary_words = dictionary_parse
     dictionary_words.each do |line|
       word = line.chomp
       signature = word_signature(word)
@@ -34,13 +34,13 @@ class AnagramFinder
     all_signatures_from_file
   end
 
-  def dictionary_format(dictionary)
-    if File.file?(dictionary[0])
-      words_from_file = read_from(dictionary[0])
+  def dictionary_parse
+    if File.file?(@dictionary[0])
+      read_from(@dictionary[0])
     elsif @dictionary.is_a? Array
-      words_from_file = dictionary
+      @dictionary
     elsif @dictionary.is_a? String
-      words_from_file = dictionary.split(" ")
+      @dictionary.split(" ")
     end
   end
 
