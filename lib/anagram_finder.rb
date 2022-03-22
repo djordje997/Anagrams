@@ -51,18 +51,5 @@ class AnagramFinder
   def word_signature(word)
     word.chars.sort.join
   end
-
-  # def find_anagrams_for_selected_words(words)
-  #   anagrams = []
-  #   words.each do |word|
-  #     anagrams << anagrams_for_word(word)
-  #   end
-  #   anagrams.delete_if { |groups_anagrams| groups_anagrams.size < 2}
-  # end
-
-  # def anagrams_for_word(word)
-  #   user_signature = word_signature(word)
-  #   @signatures[user_signature]
-  # end
 end
 
