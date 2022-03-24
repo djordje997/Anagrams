@@ -36,6 +36,11 @@ describe "find_anagrams method" do
       anagram_value = anagrams.find_anagrams
       expect(anagram_value).to eq([["enlist", "listen", "lisent", "silent"], ["sort", "rots", "tors"]])
     end
+    it "return all anagrams of file if takes argument path/to/file and words to find" do
+      anagrams = AnagramFinder.new(["spec/files/word.txt", "enlist"])
+      anagram_value = anagrams.find_anagrams
+      expect(anagram_value).to eq([["enlist", "listen", "lisent", "silent"]])
+    end
   end
 end
   

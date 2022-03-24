@@ -4,11 +4,29 @@ class AnagramFinder
   end
 
   def find_anagrams
-    find_all_anagrams
+    if is_a_file? && @dictionary[1] != nil
+      anagrams_of_given_words
+    else
+      find_all_anagrams
+    end
   end
+
 
   private
 
+  def anagrams_of_given_words
+    anagrams = []
+    @dictionary[1..-1].each do |word|
+      anagrams << anagrams_for_word(word)
+    end
+    anagrams
+  end
+
+  def anagrams_for_word(word)
+    selected_word = word_signature(word)
+    signatures[selected_word]
+  end
+    
   def find_all_anagrams
     all_anagrams = []
     signatures.each do |key, value|
@@ -35,13 +53,17 @@ class AnagramFinder
   end
 
   def dictionary_parse
-    if File.file?(@dictionary[0])
+    if is_a_file?
       read_from(@dictionary[0])
     elsif @dictionary.is_a? Array
       @dictionary
     elsif @dictionary.is_a? String
       @dictionary.split(" ")
     end
+  end
+
+  def is_a_file?
+    File.file?(@dictionary[0])
   end
 
   def read_from(file_name)
