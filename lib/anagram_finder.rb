@@ -1,22 +1,23 @@
+require "pry"
+
 class AnagramFinder
   def initialize(dictionary)
     @dictionary = dictionary
   end
 
-  def find_anagrams
-    if is_a_file? && @dictionary[1] != nil
-      anagrams_of_given_words
-    else
+  def find_anagrams(words_to_find)
+    if is_dictionary_path_to_file? && words_to_find.empty?
       find_all_anagrams
+    elsif is_dictionary_path_to_file? && !words_to_find.empty?
+      anagrams_of_given_words(words_to_find)
     end
   end
 
-
   private
 
-  def anagrams_of_given_words
+  def anagrams_of_given_words(words)
     anagrams = []
-    @dictionary[1..-1].each do |word|
+    words.each do |word|
       anagrams << anagrams_for_word(word)
     end
     anagrams
@@ -53,7 +54,7 @@ class AnagramFinder
   end
 
   def dictionary_parse
-    if is_a_file?
+    if is_dictionary_path_to_file?
       read_from(@dictionary[0])
     elsif @dictionary.is_a? Array
       @dictionary
@@ -62,7 +63,7 @@ class AnagramFinder
     end
   end
 
-  def is_a_file?
+  def is_dictionary_path_to_file?
     File.file?(@dictionary[0])
   end
 
