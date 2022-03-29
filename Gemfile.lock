@@ -24,6 +24,7 @@ GEM
     slop (3.6.0)
 
 PLATFORMS
+  ruby
   x86_64-darwin-21
 
 DEPENDENCIES

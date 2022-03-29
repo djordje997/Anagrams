@@ -15,18 +15,17 @@ def print_anagrams(anagrams, words)
 end
 
 if ARGV[0] == nil
-  input_content = user_input("Find anagrams in:")
-  anagrams = AnagramFinder.new(input_content)
+  path_to_file = user_input("Find anagrams in:")
+  anagrams = AnagramFinder.new(path_to_file)
   while true
     words_to_find = user_input("Anagrams for word:")
     break if words_to_find.empty?
     print_anagrams(anagrams, words_to_find)
   end
     
-  else
-    input_content = []
-    input_content << ARGV[0]
-    words_to_find = ARGV[1..-1]
-    anagrams = AnagramFinder.new(input_content)
-    print_anagrams(anagrams,words_to_find)
+else
+  path_to_file = ARGV[0]
+  words_to_find = ARGV[1..-1]
+  anagrams = AnagramFinder.new(path_to_file)
+  print_anagrams(anagrams,words_to_find)
 end

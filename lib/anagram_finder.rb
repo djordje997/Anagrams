@@ -6,11 +6,17 @@ class AnagramFinder
   end
 
   def find_anagrams(words_to_find)
-    if is_dictionary_path_to_file? && words_to_find.empty?
-      find_all_anagrams
-    elsif is_dictionary_path_to_file? && !words_to_find.empty?
-      anagrams_of_given_words(words_to_find)
+    if is_dictionary_path_to_file?
+      if words_to_find.empty?
+        find_all_anagrams
+      elsif !words_to_find.empty?
+        anagrams_of_given_words(words_to_find)
+      end
     end
+  end
+
+  def all_anagrams
+    find_all_anagrams
   end
 
   private
@@ -39,10 +45,10 @@ class AnagramFinder
   end
 
   def signatures
-    @signatures ||= hash_map_all_data
+    @signatures ||= dictionary_hash
   end
 
-  def hash_map_all_data
+  def dictionary_hash
     all_signatures_from_file = Hash.new {|h, k| h[k] = []}
     dictionary_words = dictionary_parse
     dictionary_words.each do |line|
@@ -54,17 +60,19 @@ class AnagramFinder
   end
 
   def dictionary_parse
-    if is_dictionary_path_to_file?
+    if File.file?(@dictionary[0])
       read_from(@dictionary[0])
     elsif @dictionary.is_a? Array
       @dictionary
+    elsif File.file?(@dictionary)
+      read_from(@dictionary)
     elsif @dictionary.is_a? String
       @dictionary.split(" ")
     end
   end
 
   def is_dictionary_path_to_file?
-    File.file?(@dictionary[0])
+    File.file?(@dictionary[0]) || File.file?(@dictionary)
   end
 
   def read_from(file_name)
