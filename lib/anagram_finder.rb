@@ -45,10 +45,10 @@ class AnagramFinder
   end
 
   def signatures
-    @signatures ||= dictionary_hash
+    @signatures ||= load_dictionary
   end
 
-  def dictionary_hash
+  def load_dictionary
     all_signatures_from_file = Hash.new {|h, k| h[k] = []}
     dictionary_words = dictionary_parse
     dictionary_words.each do |line|
