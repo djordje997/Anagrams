@@ -5,14 +5,14 @@ class AnagramFinder
     @dictionary = dictionary
   end
 
-  def find_anagrams(words_to_find)
-    if is_dictionary_path_to_file?
-      if words_to_find.empty?
+  # find_anagrams => returns all anagrams
+  # find_anagrams(["abc", "da"]) => returns anagrams for abc and da
+  def find_anagrams(words_to_find = nil)
+      if words_to_find.nil?
         find_all_anagrams
-      elsif !words_to_find.empty?
+      else
         anagrams_of_given_words(words_to_find)
       end
-    end
   end
 
   def all_anagrams
@@ -60,14 +60,14 @@ class AnagramFinder
   end
 
   def dictionary_parse
-    if File.file?(@dictionary[0])
-      read_from(@dictionary[0])
+    if @dictionary.is_a? String
+      if File.file?(@dictionary)
+        read_from(@dictionary)
+      else
+        @dictionary.split(" ")
+      end
     elsif @dictionary.is_a? Array
       @dictionary
-    elsif File.file?(@dictionary)
-      read_from(@dictionary)
-    elsif @dictionary.is_a? String
-      @dictionary.split(" ")
     end
   end
 
@@ -84,3 +84,7 @@ class AnagramFinder
   end
 end
 
+# 
+#  AnagramFinder.new("/path/to/dict.txt")
+#  AnagramFinder.new(["ab", "abc"])
+#  AnagramFinder.new("a b abc")
