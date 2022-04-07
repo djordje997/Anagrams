@@ -23,7 +23,7 @@ describe "AnagramFinder" do
         expect(anagram_value).to be_an_instance_of(Array)
       end
     end
-
+  
     context "Return correct values" do
       it "AnagramFinder.new([\"enlist\", \"listen\", \"sort\", \"rots\", \"no\", \"yes\"])" do
         anagrams = AnagramFinder.new(["enlist", "listen", "sort", "rots", "no", "yes"])
