@@ -5,18 +5,12 @@ class AnagramFinder
     @dictionary = dictionary
   end
 
-  # find_anagrams => returns all anagrams
-  # find_anagrams(["abc", "da"]) => returns anagrams for abc and da
-  def find_anagrams(words_to_find = nil)
-      if words_to_find.nil?
+  def find_anagrams(words_to_find)
+      if words_to_find.empty?
         find_all_anagrams
       else
         anagrams_of_given_words(words_to_find)
       end
-  end
-
-  def all_anagrams
-    find_all_anagrams
   end
 
   private
@@ -24,6 +18,7 @@ class AnagramFinder
   def anagrams_of_given_words(words)
     anagrams = []
     words.each do |word|
+      word
       anagrams << anagrams_for_word(word)
     end
     anagrams
@@ -83,8 +78,3 @@ class AnagramFinder
     word.chars.sort.join
   end
 end
-
-# 
-#  AnagramFinder.new("/path/to/dict.txt")
-#  AnagramFinder.new(["ab", "abc"])
-#  AnagramFinder.new("a b abc")

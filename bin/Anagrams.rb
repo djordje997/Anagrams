@@ -15,7 +15,7 @@ def print_anagrams(anagrams, words)
 end
 
 if ARGV[0] == nil
-  path_to_file = user_input("Find anagrams in:")
+  path_to_file = user_input("Find anagrams in:").join("")
   anagrams = AnagramFinder.new(path_to_file)
   while true
     words_to_find = user_input("Anagrams for word:")
