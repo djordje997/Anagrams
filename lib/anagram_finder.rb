@@ -6,11 +6,11 @@ class AnagramFinder
   end
 
   def find_anagrams(words_to_find)
-      if words_to_find.empty?
-        find_all_anagrams
-      else
-        anagrams_of_given_words(words_to_find)
-      end
+    if words_to_find.empty?
+      find_all_anagrams
+    else
+      anagrams_of_given_words(words_to_find)
+    end
   end
 
   private
@@ -18,7 +18,6 @@ class AnagramFinder
   def anagrams_of_given_words(words)
     anagrams = []
     words.each do |word|
-      word
       anagrams << anagrams_for_word(word)
     end
     anagrams
@@ -64,10 +63,6 @@ class AnagramFinder
     elsif @dictionary.is_a? Array
       @dictionary
     end
-  end
-
-  def is_dictionary_path_to_file?
-    File.file?(@dictionary[0]) || File.file?(@dictionary)
   end
 
   def read_from(file_name)
